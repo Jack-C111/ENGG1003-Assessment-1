@@ -25,6 +25,10 @@
 /* Begin PBXFileReference section */
 		0B627D752434ABDD00BA8FC0 /* ENGG1003 Assessment 1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "ENGG1003 Assessment 1"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B627D782434ABDD00BA8FC0 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		0B627D80243AD2C900BA8FC0 /* File */ = {isa = PBXFileReference; lastKnownFileType = text; path = File; sourceTree = "<group>"; };
+		0B627D8D243B471E00BA8FC0 /* Result */ = {isa = PBXFileReference; lastKnownFileType = text; path = Result; sourceTree = "<group>"; };
+		0B627D8E243B4CB800BA8FC0 /* Rail Fence Input */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Rail Fence Input"; sourceTree = "<group>"; };
+		0B627D8F243B4CC500BA8FC0 /* Rail Fence Output */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Rail Fence Output"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +62,10 @@
 			isa = PBXGroup;
 			children = (
 				0B627D782434ABDD00BA8FC0 /* main.c */,
+				0B627D8D243B471E00BA8FC0 /* Result */,
+				0B627D8E243B4CB800BA8FC0 /* Rail Fence Input */,
+				0B627D8F243B4CC500BA8FC0 /* Rail Fence Output */,
+				0B627D80243AD2C900BA8FC0 /* File */,
 			);
 			path = "ENGG1003 Assessment 1";
 			sourceTree = "<group>";
