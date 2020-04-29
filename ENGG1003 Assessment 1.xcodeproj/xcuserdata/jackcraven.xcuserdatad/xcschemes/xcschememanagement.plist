@@ -9,10 +9,105 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>Test File 10.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>8</integer>
+		</dict>
+		<key>Test File 11.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>11</integer>
+		</dict>
+		<key>Test File 2.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>Test File 3.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>Test File 4.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>Test File 5.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
+		<key>Test File 6.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
+		<key>Test File 7.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
+		<key>Test File 8.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>9</integer>
+		</dict>
+		<key>Test File 9.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>10</integer>
+		</dict>
+		<key>Test File.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>0B627D742434ABDD00BA8FC0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0B627D93243C623C00BA8FC0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0B627D9F243C813E00BA8FC0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0B627DAA243C8F1900BA8FC0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0B627DB5243D867500BA8FC0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0B627DEA2441BA1000BA8FC0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0B627DF52441BA4400BA8FC0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0B627E152449DEF000BA8FC0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0B627E21244D7A0D00BA8FC0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
