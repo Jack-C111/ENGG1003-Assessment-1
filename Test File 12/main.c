@@ -1,25 +1,9 @@
-#include <stdio.h>
-#include <string.h>
-
-int main() {
-    
-    char cipherText [] = "t dtioheie  walgriegsctugeovr clismsa nrpsn h ee fneatm seyitlle h";
-    char message [strlen(cipherText)];
-    int A = 5;
-    int B = 3;
+int i = 0, j = 0;
+    char grid[length][A];
     int key = 0;
-    int dir = 1;
-    
-    int i = 0, j = 0; // i is x coordinate and j is y coordinate
-        
-    
-    
-    
-    
+  
     
     if (dir == 0) {
-        
-        char grid[strlen(message)][A];
     
         // RESET ALL VALUES IN ARRAY TO 0 AND PRINT VISUAL REPRESENTATION - WORKING
         
@@ -51,6 +35,9 @@ int main() {
                     j++;
                     if (j == A - 1)
                         break;
+                    if (i == strlen(cipherText)) {
+                        break;
+                    }
                 }
             
                 if (j == A-1) { //if reaches bottom first time
@@ -60,6 +47,9 @@ int main() {
                         j--;
                         if (j == A - B)
                             break;
+                        if (i == strlen(cipherText)) {
+                            break;
+                        }
                     }
                     if (j == A - B) { // if it reaches A-B
                         while (1) { //bring it back to bottom
@@ -68,6 +58,9 @@ int main() {
                             j++;
                             if (j == A-1)
                                 break;
+                            if (i == strlen(cipherText)) {
+                                break;
+                            }
                         }
                     }
                 }
@@ -80,6 +73,9 @@ int main() {
                 
                     if (j == 0)
                         break;
+                    if (i == strlen(cipherText)) {
+                        break;
+                    }
                 }
             }
         
@@ -110,6 +106,9 @@ int main() {
                 if (grid[i][j] == 1) {
                     grid[i][j] = message[i];
                     j++;
+                    if (i == strlen(cipherText)) {
+                        break;
+                    }
                 }
                 else {
                     j++;
@@ -130,8 +129,8 @@ int main() {
                 }
                 printf ("\n\n");
         
-        i = 0;
-        j = 0;
+            i = 0;
+            j = 0;
             key = 0;
 
         // READ VALUES ROW BY ROW AND PRINT ENCRIPTED TEXT - WORKING
@@ -143,19 +142,25 @@ int main() {
                     cipherText[key] = grid [i][j];
                     i++;
                     key++;
+                    if (j == A) {
+                        break;
+                    }
                 }
                 else
                     i++;
             }
             i = 0;
             j++;
+            if (j == A) {
+                break;
+            }
             
         }
         
 
         printf("%s", cipherText);
         printf("\n\n");
-        
+    
     }
     
     
@@ -166,7 +171,7 @@ int main() {
     if (dir == 1) {
     
         key = 0;
-        char grid[strlen(cipherText)][A];
+        char grid2[length][A];
 
         // RESET ALL VALUES IN ARRAY TO 0 AND PRINT VISUAL REPRESENTATION - WORKING
         
@@ -174,9 +179,9 @@ int main() {
         
         for (j = 0; j < A; j++) { //2 nested 'for' loops to reset all values in grid to 0, also prints visual representation
             printf ("\n");
-            for (i = 0; i < strlen(cipherText); i++) {
-                grid [i][j] = 0;
-                printf("%d ", grid[i][j]);
+            for (i = 0; i <= length; i++) {
+                grid2 [i][j] = 0;
+                printf("%d ", grid2[i][j]);
             }
         }
         printf ("\n");
@@ -191,44 +196,54 @@ int main() {
         j = 0; //resets both coordinates to zero so algorithm starts from (0,0)
         i = 0;
         
-        while (i < strlen(cipherText)) {
+        while (i < length) {
             
             if (j == 0) { //if at very top
                 while (1) { //while loop moves values
-                    grid[i][j] = 1;
+                    grid2[i][j] = 1;
                     i++;
                     j++;
-                    if (j == A - 1)
+                    if (j == (A - 1))
+                        break;
+                    if (i == length)
                         break;
                 }
             
                 if (j == A-1) { //if reaches bottom first time
                     while (1) { //loop to bring it back to A-B
-                        grid[i][j] = 1;
+                        grid2[i][j] = 1;
                         i++;
                         j--;
                         if (j == A - B)
                             break;
+                        if (i == length)
+                        break;
+                        
                     }
                     if (j == A - B) { // if it reaches A-B
                         while (1) { //bring it back to bottom
-                            grid[i][j] = 1;
+                            grid2[i][j] = 1;
                             i++;
                             j++;
                             if (j == A-1)
                                 break;
+                            if (i == length)
+                            break;
+                            
                         }
                     }
                 }
             }
             if (j == A - 1) {
                 while (1) {
-                    grid[i][j] = 1;
+                    grid2[i][j] = 1;
                     i++;
                     j--;
                 
                     if (j == 0)
                         break;
+                    if (i == length)
+                    break;
                 }
             }
         
@@ -237,8 +252,8 @@ int main() {
         
         for (j = 0; j < A; j++) {
             printf ("\n");
-            for (i = 0; i < strlen(cipherText); i++) {
-                printf("%d ", grid[i][j]);
+            for (i = 0; i <= length; i++) {
+                printf("%d ", grid2[i][j]);
             }
         }
         printf ("\n\n");
@@ -253,9 +268,9 @@ int main() {
         
         
         while (j < A) {
-            while (i < strlen(cipherText)) {
-                if (grid[i][j] != 0) {
-                    grid[i][j] = cipherText[key];
+            while (i < length) {
+                if (grid2[i][j] != 0) {
+                    grid2[i][j] = cipherText[key];
                     i++;
                     key++;
                 }
@@ -264,15 +279,16 @@ int main() {
             }
             i = 0;
             j++;
+            }
             
-        }
+        
         
         // PRINT VISUAL REPRESENTATION OF ARRAY - WORKING
         
                 for (j = 0; j < A; j++) {
                     printf ("\n");
-                    for (i = 0; i < strlen(cipherText); i++) {
-                        printf("%d ", grid[i][j]);
+                    for (i = 0; i <= length; i++) {
+                        printf("%d ", grid2[i][j]);
                     }
                 }
                 printf ("\n\n");
@@ -280,14 +296,14 @@ int main() {
         
         i = 0;
         j = 0;
-            key = 0;
+        key = 0;
 
-        // READ VALUES COLUMN BY COLUMN AND PRINT DECRIPTED TEXT - NOT WORKING
+        // READ VALUES COLUMN BY COLUMN AND PRINT DECRIPTED TEXT - WORKING
 
-        while (i <= strlen(cipherText)) {
+        while (i <= length) {
             for (j = 0; j < A; j++) {
-                if (grid[i][j] != 0) {
-                    message[key] = grid[i][j];
+                if (grid2[i][j] != 0) {
+                    message[key] = grid2[i][j];
                     key++;
                 }
             }
@@ -304,11 +320,5 @@ int main() {
         
         }
     
-    return 0;
-    
+
 }
-
-
-
-
-  

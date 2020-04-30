@@ -77,7 +77,7 @@ int main(int argc, char *argv[]) {
             length = findSize(decryptedFilename); // calls function and returns integer which is length of input file
             
             char message[length]; // decrypted message
-            char cipherText[length]; // encripted message
+            char cipherText[strlen(message)]; // encripted message
             
             fgets(message, length, decryptedFile); // gets string from file and stores it in message char
             
@@ -106,12 +106,19 @@ int main(int argc, char *argv[]) {
             decryptedFile = fopen (decryptedFilename, "w");
             
             length = findSize(encryptedFilename); // calls function and returns integer which is length of input file
+            printf ("length is: %d", length);
             
-            char message[length]; // decrypted message
             char cipherText[length]; // encripted message
+            char message[strlen(cipherText)]; // decrypted message
             
-            fgets(cipherText, length, encryptedFile); // gets string from file and stores it in message char
+            char test2[999];
             
+            fgets(cipherText, (length + 1), encryptedFile); // gets string from file and stores it in message char
+            fgets(test2, length, encryptedFile);
+            
+            printf("\n\n%s\n\n", cipherText);
+            printf("\n\n%s\n\n", test2);
+                   
             dir = 1;
             printf ("\n\n   Two-level rail-fence decryption selected");
             printf ("\n   Input number of rails: ");
@@ -270,12 +277,12 @@ void railFence(char *message, char *cipherText, int length, int A) {
 
 void railFence2(char *message, char *cipherText, int length, int A, int B, int dir) {
 
-    int i = 0, j = 0;
-    char grid[length][A];
+    int i = 0, j = 0; // i is x coordinate and j is y coordinate
     int key = 0;
-  
-    
+        
     if (dir == 0) {
+        
+        char grid[strlen(message)][A];
     
         // RESET ALL VALUES IN ARRAY TO 0 AND PRINT VISUAL REPRESENTATION - WORKING
         
@@ -287,10 +294,6 @@ void railFence2(char *message, char *cipherText, int length, int A, int B, int d
             }
         }
         printf ("\n");
-
-        
-        
-        
         
         
         // SET VALUES WHICH WILL CONTAIN CHARACTER TO '1' - WORKING
@@ -307,9 +310,6 @@ void railFence2(char *message, char *cipherText, int length, int A, int B, int d
                     j++;
                     if (j == A - 1)
                         break;
-                    if (i == strlen(cipherText)) {
-                        break;
-                    }
                 }
             
                 if (j == A-1) { //if reaches bottom first time
@@ -319,9 +319,6 @@ void railFence2(char *message, char *cipherText, int length, int A, int B, int d
                         j--;
                         if (j == A - B)
                             break;
-                        if (i == strlen(cipherText)) {
-                            break;
-                        }
                     }
                     if (j == A - B) { // if it reaches A-B
                         while (1) { //bring it back to bottom
@@ -330,9 +327,6 @@ void railFence2(char *message, char *cipherText, int length, int A, int B, int d
                             j++;
                             if (j == A-1)
                                 break;
-                            if (i == strlen(cipherText)) {
-                                break;
-                            }
                         }
                     }
                 }
@@ -345,9 +339,6 @@ void railFence2(char *message, char *cipherText, int length, int A, int B, int d
                 
                     if (j == 0)
                         break;
-                    if (i == strlen(cipherText)) {
-                        break;
-                    }
                 }
             }
         
@@ -378,9 +369,6 @@ void railFence2(char *message, char *cipherText, int length, int A, int B, int d
                 if (grid[i][j] == 1) {
                     grid[i][j] = message[i];
                     j++;
-                    if (i == strlen(cipherText)) {
-                        break;
-                    }
                 }
                 else {
                     j++;
@@ -396,43 +384,48 @@ void railFence2(char *message, char *cipherText, int length, int A, int B, int d
                 for (j = 0; j < A; j++) {
                     printf ("\n");
                     for (i = 0; i < strlen(message); i++) {
-                        printf("%d ", grid[i][j]);
+                        if (grid[i][j] == 0)
+                            printf("- ");
+                        else
+                            printf("%c ", grid[i][j]);
                     }
                 }
                 printf ("\n\n");
         
-            i = 0;
-            j = 0;
-            key = 0;
+        i = 0;
+        j = 0;
+        key = 0;
 
         // READ VALUES ROW BY ROW AND PRINT ENCRIPTED TEXT - WORKING
+        
+        char test [length];
         
         while (j < A) {
             while (i < strlen(message)) {
                 if (grid[i][j] != 0) {
-    //                printf("%c", grid [i][j]);
-                    cipherText[key] = grid [i][j];
-                    i++;
+                    cipherText [key] = grid [i][j];
+                    test[key] = grid [i][j];
                     key++;
-                    if (j == A) {
-                        break;
-                    }
                 }
-                else
-                    i++;
+                
+                i++;
             }
-            i = 0;
             j++;
-            if (j == A) {
-                break;
-            }
-            
+            i = 0;
         }
         
 
-        printf("%s", cipherText);
+        printf("%d\n\n\n", length);
+  
+        cipherText[(length-1)] = '\0';
+        test[(length-1)] = '\0';
+        strcpy(cipherText, test);
+        
+        printf("%s\n", cipherText);
+        printf("%s", test);
+        
         printf("\n\n");
-    
+        
     }
     
     
@@ -443,7 +436,8 @@ void railFence2(char *message, char *cipherText, int length, int A, int B, int d
     if (dir == 1) {
     
         key = 0;
-        char grid2[strlen(cipherText)][A];
+        char grid[strlen(cipherText)][A];
+        printf("\n\n%s\n\n", cipherText);
 
         // RESET ALL VALUES IN ARRAY TO 0 AND PRINT VISUAL REPRESENTATION - WORKING
         
@@ -451,9 +445,9 @@ void railFence2(char *message, char *cipherText, int length, int A, int B, int d
         
         for (j = 0; j < A; j++) { //2 nested 'for' loops to reset all values in grid to 0, also prints visual representation
             printf ("\n");
-            for (i = 0; i < strlen(cipherText); i++) {
-                grid2 [i][j] = 0;
-                printf("%d ", grid2[i][j]);
+            for (i = 0; i < length; i++) {
+                grid [i][j] = 0;
+                printf("%d ", grid[i][j]);
             }
         }
         printf ("\n");
@@ -468,51 +462,39 @@ void railFence2(char *message, char *cipherText, int length, int A, int B, int d
         j = 0; //resets both coordinates to zero so algorithm starts from (0,0)
         i = 0;
         
-        while (i < strlen(cipherText)) {
+        while (i < length) {
             
             if (j == 0) { //if at very top
                 while (1) { //while loop moves values
-                    grid2[i][j] = 1;
+                    grid[i][j] = 1;
                     i++;
                     j++;
                     if (j == A - 1)
                         break;
-                    
-                    
-                    if (i == strlen(cipherText)) {
-                        break;
-                    }
                 }
             
                 if (j == A-1) { //if reaches bottom first time
                     while (1) { //loop to bring it back to A-B
-                        grid2[i][j] = 1;
+                        grid[i][j] = 1;
                         i++;
                         j--;
                         if (j == A - B)
                             break;
-                        
-                        if (i == strlen(cipherText)) {
-                            break;
-                        }
                     }
                     if (j == A - B) { // if it reaches A-B
                         while (1) { //bring it back to bottom
-                            grid2[i][j] = 1;
+                            grid[i][j] = 1;
                             i++;
                             j++;
                             if (j == A-1)
                                 break;
-                            if (i == strlen(cipherText)) {
-                                break;
-                            }
                         }
                     }
                 }
             }
             if (j == A - 1) {
                 while (1) {
-                    grid2[i][j] = 1;
+                    grid[i][j] = 1;
                     i++;
                     j--;
                 
@@ -526,25 +508,29 @@ void railFence2(char *message, char *cipherText, int length, int A, int B, int d
         
         for (j = 0; j < A; j++) {
             printf ("\n");
-            for (i = 0; i < strlen(cipherText); i++) {
-                printf("%d ", grid2[i][j]);
+            for (i = 0; i < length; i++) {
+                printf("%d ", grid[i][j]);
             }
         }
         printf ("\n\n");
         
         
         
-        //START ASSIGNING CHARACTERS TO ARRAY CHARACTERS WITH '1' - NOT WORKING
+        //START ASSIGNING CHARACTERS TO ARRAY ELEMENTS WITH '1' - NOT WORKING
         
         i = 0;
         j = 0;
         key = 0;
-        
+
+        i = 0;
+        j = 0;
+        key = 0;
+        printf("%s", cipherText);
         
         while (j < A) {
-            while (i <= strlen(cipherText)) {
-                if (grid2[i][j] != 0) {
-                    grid2[i][j] = cipherText[key];
+            while (i < length) {
+                if (grid[i][j] != 0) {
+                    grid[i][j] = cipherText[key];
                     i++;
                     key++;
                 }
@@ -553,16 +539,18 @@ void railFence2(char *message, char *cipherText, int length, int A, int B, int d
             }
             i = 0;
             j++;
-            }
             
-        
+        }
         
         // PRINT VISUAL REPRESENTATION OF ARRAY - WORKING
         
                 for (j = 0; j < A; j++) {
                     printf ("\n");
-                    for (i = 0; i < strlen(cipherText); i++) {
-                        printf("%d ", grid2[i][j]);
+                    for (i = 0; i < length; i++) {
+                        if (grid[i][j] == 0)
+                            printf("- ");
+                        else
+                            printf("%c ", grid[i][j]);
                     }
                 }
                 printf ("\n\n");
@@ -570,36 +558,41 @@ void railFence2(char *message, char *cipherText, int length, int A, int B, int d
         
         i = 0;
         j = 0;
-            key = 0;
+        key = 0;
+        
+        char test [length];
 
         // READ VALUES COLUMN BY COLUMN AND PRINT DECRIPTED TEXT - NOT WORKING
 
-        while (i <= strlen(cipherText)) {
+        for (i = 0; i < length; i++) {
+                
             for (j = 0; j < A; j++) {
-                if (grid2[i][j] != 0) {
-                    message[key] = grid2[i][j];
+                if (grid[i][j] != 0) {
+                    message[key] = grid[i][j];
+                    test[key] = grid[i][j];
                     key++;
                 }
             }
-            i++;
         }
-
+ 
         printf("\n\n");
 
         
-        printf("%s", message);
+        printf("%d\n\n\n", length);
+        
+              message[length ] = 0;
+              test[length] = 0;
+              strcpy(message, test);
+              
+              printf("%s\n", message);
+              printf("%s", test);
         
         printf("\n\n");
         
         
         }
     
-
 }
-
-
-
-
 
 /*
 
