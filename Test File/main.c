@@ -58,3 +58,36 @@ int main() {
     
     return 0;
 }
+
+
+/*
+
+int main() {
+    FILE *input;
+    FILE *output;
+
+    input = fopen("File", "r");
+    output = fopen("Result", "w");
+    
+    if (input == NULL) {
+        perror("error" );
+        return 1;
+    }
+    
+    char string, *p;
+    p = &string;
+    
+    while (!feof(input)) {
+        fscanf(input, "%c", p);
+        printf("%c", *p);
+        fprintf(output, "%c", *p);
+        
+        
+        
+    }
+
+    return 0;
+
+}
+
+*/

@@ -149,6 +149,8 @@
 		0B54593A24594DE100E5BE64 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		0B54594324597F6000E5BE64 /* Test File 12 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Test File 12"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B54594524597F6000E5BE64 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		0B54594A245BDFE300E5BE64 /* Debugging Visualisations */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Debugging Visualisations"; sourceTree = "<group>"; };
+		0B54594B245C1A4C00E5BE64 /* Log */ = {isa = PBXFileReference; lastKnownFileType = text; path = Log; sourceTree = "<group>"; };
 		0B627D752434ABDD00BA8FC0 /* ENGG1003 Assessment 1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "ENGG1003 Assessment 1"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B627D782434ABDD00BA8FC0 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		0B627D8E243B4CB800BA8FC0 /* Message */ = {isa = PBXFileReference; lastKnownFileType = text; path = Message; sourceTree = "<group>"; };
@@ -343,6 +345,8 @@
 				0B627D782434ABDD00BA8FC0 /* main.c */,
 				0B627D8E243B4CB800BA8FC0 /* Message */,
 				0B627D8F243B4CC500BA8FC0 /* Cipher Text */,
+				0B54594A245BDFE300E5BE64 /* Debugging Visualisations */,
+				0B54594B245C1A4C00E5BE64 /* Log */,
 			);
 			path = "ENGG1003 Assessment 1";
 			sourceTree = "<group>";
