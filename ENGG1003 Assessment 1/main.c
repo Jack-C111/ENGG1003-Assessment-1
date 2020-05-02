@@ -196,12 +196,14 @@ int main(int argc, char *argv[]) {
     while (!feof(decryptedFile)) {
         fscanf (decryptedFile, "%c", b);
         fprintf (logFile, "%c", *b);
+        buffer[length] = 0;
     }
     
     fprintf (logFile, "\n\nContents of %s File:\n", encryptedFilename);
     while (!feof(encryptedFile)) {
         fscanf (encryptedFile, "%c", b);
         fprintf (logFile, "%c", *b);
+        buffer[length] = 0;
     }
     
     fprintf (logFile, "\n---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
@@ -341,7 +343,7 @@ void railFence2(char *message, char *cipherText, int length, int A, int B, int d
         
     if (dir == 0) { // dir is passed from main and is zero if encryption is selected
         
-        char grid[strlen(message)][A]; // establishes 2D array responsible for holding message in correct order
+        char grid[(2 * length)][2 * A]; // establishes 2D array responsible for holding message in correct order
     
         // ----RESET ALL VALUES IN ARRAY TO 0 AND PRINT VISUAL REPRESENTATION----
         
@@ -350,6 +352,8 @@ void railFence2(char *message, char *cipherText, int length, int A, int B, int d
             for (i = 0; i < strlen(message); i++) {
                 grid [i][j] = 0; // sets each grid element to zero
                 fprintf(debugFile, "%d ", grid[i][j]); // prints visual representation of zeroed grid to debug file, used for debugging
+                if (i == strlen(message))
+                    break;
             }
         }
         fprintf (debugFile, "\n"); // used for debugging
