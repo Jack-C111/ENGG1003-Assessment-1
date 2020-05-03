@@ -151,6 +151,10 @@
 		0B54594524597F6000E5BE64 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		0B54594A245BDFE300E5BE64 /* Debugging Visualisations */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Debugging Visualisations"; sourceTree = "<group>"; };
 		0B54594B245C1A4C00E5BE64 /* Log */ = {isa = PBXFileReference; lastKnownFileType = text; path = Log; sourceTree = "<group>"; };
+		0B54594C245E983C00E5BE64 /* Task Selection */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Task Selection"; sourceTree = "<group>"; };
+		0B54594D245E984400E5BE64 /* A */ = {isa = PBXFileReference; lastKnownFileType = text; path = A; sourceTree = "<group>"; };
+		0B54594E245E984C00E5BE64 /* B */ = {isa = PBXFileReference; lastKnownFileType = text; path = B; sourceTree = "<group>"; };
+		0B54594F245EFF8100E5BE64 /* Cipher */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cipher; sourceTree = "<group>"; };
 		0B627D752434ABDD00BA8FC0 /* ENGG1003 Assessment 1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "ENGG1003 Assessment 1"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B627D782434ABDD00BA8FC0 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		0B627D8E243B4CB800BA8FC0 /* Message */ = {isa = PBXFileReference; lastKnownFileType = text; path = Message; sourceTree = "<group>"; };
@@ -343,6 +347,9 @@
 			isa = PBXGroup;
 			children = (
 				0B627D782434ABDD00BA8FC0 /* main.c */,
+				0B54594C245E983C00E5BE64 /* Task Selection */,
+				0B54594D245E984400E5BE64 /* A */,
+				0B54594E245E984C00E5BE64 /* B */,
 				0B627D8E243B4CB800BA8FC0 /* Message */,
 				0B627D8F243B4CC500BA8FC0 /* Cipher Text */,
 				0B54594A245BDFE300E5BE64 /* Debugging Visualisations */,
@@ -364,6 +371,7 @@
 			isa = PBXGroup;
 			children = (
 				0B627DA2243C813E00BA8FC0 /* main.c */,
+				0B54594F245EFF8100E5BE64 /* Cipher */,
 			);
 			path = "Test File 2";
 			sourceTree = "<group>";

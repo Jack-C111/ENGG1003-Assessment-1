@@ -10,21 +10,30 @@ int main(int argc, char *argv[]) {
     
     char decryptedFilename[] = "Message"; // variables for file names - makes it simpler to change files rather than if it was hard coded
     char encryptedFilename[] = "Cipher Text";
+    char taskSelectionFilname[] = "Task Selection";
+    char AFilename[] = "A";
+    char BFilename[] = "B";
+    
+    FILE* taskSelectionFile;
+    taskSelectionFile = fopen (taskSelectionFilname, "r");
     
     int menuSelection = 0; // variable for user to input menu selection
     int length = 0; // variable for length of message (determined by findSize function)
     
     // following 3 printf statements print menu text to stdout
     printf ("\n MAIN MENU:\n\n Make selection by inputing integer denoted before option.\n\n");
-    printf (" 1. Encryption using classic rail-fence cipher\n 2. Encryption using 2-level rail-fence cipher\n 3. Decryption using 2-level rail-fence cipher\n 4. Decryption using substitution cipher\n 5. Exit\n");
-    printf ("\n    Enter selection: ");
-    scanf ("%d", &menuSelection); // scans user input as an integer used for selecting menu item
+    printf (" 1. Encryption using classic rail-fence cipher\n 2. Encryption using 2-level rail-fence cipher\n 3. Decryption using 2-level rail-fence cipher\n 4. Decryption using substitution cipher\n");
+    fscanf (taskSelectionFile, "%d", &menuSelection); // scans user input from file as an integer used for selecting menu item
     
-    while ((menuSelection < 1) || (menuSelection > 5)) { // while loop repeats selection prompt if an integer outside the avaliable values is input
+    if ((menuSelection < 1) || (menuSelection > 4)) { // if selection is outside range of options
         
-        printf ("\n    Invalid input '%d', try again.", menuSelection);
-        printf ("\n    Enter selection: ");
-        scanf ("%d", &menuSelection);
+        printf ("\n    Invalid Integer between 1 and 5 must be placed in %s file. Replace integer and restart program.", taskSelectionFilname);
+        char enter = 0;
+        printf ("\n    Press ENTER to continue... ");
+        while (enter != '\r' && enter != '\n') { // loop which proceeds only when newline char detected in stdin, gives user time to read menu
+            enter = getchar();
+        }
+        return 1;
     }
     
     int A; // number of rails used for classic and two level rail fence cipher
@@ -39,6 +48,12 @@ int main(int argc, char *argv[]) {
             
             FILE* encryptedFile; // opens output file in write mode
             encryptedFile = fopen (encryptedFilename, "w");
+            
+            FILE* taskSelectionFile; // opens task selection file in read mode
+            taskSelectionFile = fopen (taskSelectionFilname, "r");
+            
+            FILE* AFile; // opens A file in read mode
+            AFile = fopen (AFilename, "r");
             
             length = findSize(decryptedFilename); // calls findSize function passing it the filename which is being used as input and sets returned integer as length variable
             
@@ -55,14 +70,21 @@ int main(int argc, char *argv[]) {
             }
 
             printf ("\n\n    Classic rail-fence encryption selected");
-            printf ("\n    Input number of rails: ");
-            scanf ("%d", &A); // scans integer from stdin to use for number of rails
+            printf ("\n    Press ENTER to continue... ");
+            fscanf (AFile, "%d", &A); // scans integer from file to use for number of rails
+            char enter = 0;
+            while (enter != '\r' && enter != '\n') { // loop which proceeds only when newline char detected in stdin, gives user time to read menu
+                enter = getchar();
+            }
+            
             railFence(message, cipherText, length, A); // calls rail fence function, inputting the message, length of the message and number of rails (A). cipherText variable is used to return encrypted string from void function
             fprintf(encryptedFile, "%s", cipherText); // prints resultant encrypted message into Cipher Text file
             printf ("    Encrypted text has successfully been printed to the '%s' file.", encryptedFilename);
             
             fclose (encryptedFile); // closes both files used for input and output
             fclose (decryptedFile);
+            fclose (taskSelectionFile);
+            fclose (AFile);
             
             break;
         }
@@ -74,6 +96,15 @@ int main(int argc, char *argv[]) {
             
             FILE* encryptedFile; // opens output file in write mode
             encryptedFile = fopen (encryptedFilename, "w");
+            
+            FILE* taskSelectionFile; // opens task selection file in read mode
+            taskSelectionFile = fopen (taskSelectionFilname, "r");
+            
+            FILE* AFile; // opens A file in read mode
+            AFile = fopen (AFilename, "r");
+            
+            FILE* BFile; // opens B file in read mode
+            BFile = fopen (BFilename, "r");
             
             length = findSize(decryptedFilename); // calls findSize function passing it the filename which is being used as input and sets returned integer as length variable
             
@@ -93,16 +124,23 @@ int main(int argc, char *argv[]) {
             dir = 0; // dir is set to zero as this is passed to function to determine that user selected encryption
             
             printf ("\n\n    Two-level rail-fence encryption selected");
-            printf ("\n    Input number of rails: ");
-            scanf ("%d", &A); // scans integer from stdin to use for height of grid
-            printf ("\n    Input height of peaks: ");
-            scanf ("%d", &B); // scans integer from stdin to use for secondary height algorithm moves back up
+            
+            char enter = 0;
+            printf ("\n    Press ENTER to continue... ");
+            while (enter != '\r' && enter != '\n') { // loop which proceeds only when newline char detected in stdin, gives user time to read menu
+                enter = getchar();
+            }
+            fscanf (AFile, "%d", &A); // scans integer from file to use for height of grid/number of rails
+            fscanf (BFile, "%d", &B); // scans integer from file to use for secondary height algorithm moves back up
             railFence2(message, cipherText, length, A, B, dir); // calls two level rail fence function, inputting the message, length of the message and number of rails (A). cipherText variable is used to return encrypted string from void function, dir is used to determine whether encryption or decryption has been selected by the user (in this case dir is set to 0 for encryption)
             fprintf(encryptedFile, "%s", cipherText); // prints resultant encrypted message into Cipher Text file
             printf ("    Encrypted text has successfully been printed to the '%s' file.", encryptedFilename);
             
             fclose (encryptedFile); // closes both files used for input and output
             fclose (decryptedFile);
+            fclose (taskSelectionFile);
+            fclose (AFile);
+            fclose (BFile);
             
             break;
         }
@@ -117,6 +155,15 @@ int main(int argc, char *argv[]) {
             
             FILE* debugFile; // opens debug file in write mode
             debugFile = fopen ("Debugging Visualisations", "w");
+            
+            FILE* taskSelectionFile; // opens task selection file in read mode
+            taskSelectionFile = fopen (taskSelectionFilname, "r");
+            
+            FILE* AFile; // opens A file in read mode
+            AFile = fopen (AFilename, "r");
+            
+            FILE* BFile; // opens B file in read mode
+            BFile = fopen (BFilename, "r");
             
             length = findSize(encryptedFilename); // calls findSize function passing it the filename which is being used as input and sets returned integer as length variable
             fprintf (debugFile, "message length is: %d\n", length); // prints length of string to debug file (used for debugging)
@@ -136,24 +183,27 @@ int main(int argc, char *argv[]) {
             dir = 1; // dir is set to one as this is passed to function to determine that user selected decryption
             
             printf ("\n\n    Two-level rail-fence decryption selected");
-            printf ("\n    Input number of rails: ");
-            scanf ("%d", &A); // scans integer from stdin to use for height of grid
-            printf ("\n    Input height of peaks: ");
-            scanf ("%d", &B); // scans integer from stdin to use for secondary height algorithm moves back up
+            char enter = 0;
+            printf ("\n    Press ENTER to continue... ");
+            while (enter != '\r' && enter != '\n') { // loop which proceeds only when newline char detected in stdin, gives user time to read menu
+                enter = getchar();
+            }
+            fscanf (AFile, "%d", &A); // scans integer from stdin to use for height of grid
+            fscanf (BFile, "%d", &B); // scans integer from stdin to use for secondary height algorithm moves back up
             railFence2(message, cipherText, length, A, B, dir); // calls two level rail fence function, inputting the encrypted message, length of the message and number of rails (A). message variable is used to return decrypted string from void function, dir is used to determine whether encryption or decryption has been selected by the user (in this case dir is set to 1 for decryption)
             fprintf(decryptedFile, "%s", message); // prints resultant encrypted message into Message file
             printf ("    Decrypted text has successfully been printed to the '%s' file.", decryptedFilename);
             
             fclose (encryptedFile); // closes all files
             fclose (decryptedFile);
+            fclose (taskSelectionFile);
+            fclose (AFile);
+            fclose (BFile);
             fclose (debugFile);
+            fclose (taskSelectionFile);
             
             break;
         }
-        
-        case 5: // EXIT
-            printf ("\n    Program exited\n\n\n"); // if exit option selected from menu, confirmation message printed to stdout and program returns 1
-            return 1;
 
         default: { // DEFAULT
             printf ("An error has occured"); // if option outside of menu values (should be impossible due to while loop above) prints error to stdout and returns 8
@@ -208,8 +258,8 @@ int main(int argc, char *argv[]) {
     
     fprintf (logFile, "\n---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
     
-    fclose(debugFile);
-    fclose(logFile);
+    fclose (debugFile);
+    fclose (logFile);
     
     return 0;
 }
@@ -237,7 +287,7 @@ void railFence(char *message, char *cipherText, int length, int A) { // start of
     FILE* debugFile; // opens debug file in write mode
     debugFile = fopen ("Debugging Visualisations", "w");
     
-    char grid[length][A]; // establishes 2D array responsible for holding message in correct order
+    char grid[(2 * length)][(2* A)]; // establishes 2D array responsible for holding message in correct order
     
     int i = 0, j = 0; // i is x-coordinate and j is y-coordinate in grid array
     int key = 0; // designates position of character on cipherText string
@@ -268,6 +318,7 @@ void railFence(char *message, char *cipherText, int length, int A) { // start of
                 }
                 i++; // incriments both j and i by 1 to move algorithm diagonally downward
                 j++;
+                
             }
         }
         
@@ -284,6 +335,19 @@ void railFence(char *message, char *cipherText, int length, int A) { // start of
         }
         
     }
+    
+    // ----PRINT VISUAL REPRESENTATION OF ARRAY (for debugging)----
+           
+                   for (j = 0; j < A; j++) { // two for loops which pass through every element of the 2D array and prints it to the debug file
+                       fprintf (debugFile, "\n");
+                       for (i = 0; i < strlen(message); i++) {
+                           if (grid[i][j] == 0)
+                               fprintf(debugFile, "- ");
+                           else
+                               fprintf(debugFile, "1 ");
+                       }
+                   }
+                   fprintf (debugFile, "\n\n");
          
     
     // ----START ASSIGNING CHARACTERS TO ARRAY CHARACTERS WITH '1'----
@@ -296,14 +360,32 @@ void railFence(char *message, char *cipherText, int length, int A) { // start of
             if (grid[i][j] == 1) {
                 grid[i][j] = message[i]; // sets relevant array elements to corresponding message character
                 j++; // incriments j by 1 to move algorthm gradually downward
+                if (i == strlen(message))
+                break;
             }
             else {
                 j++;
+                if (i == strlen(message))
+                break;
             }
         }
         i++; // moves algorithm to next column
         j = 0; // resets j to 0 as algorithm moves to next column
     }
+    
+    
+    // ----PRINT VISUAL REPRESENTATION OF ARRAY (for debugging)----
+           
+                   for (j = 0; j < A; j++) { // two for loops which pass through every element of the 2D array and prints it to the debug file
+                       fprintf (debugFile, "\n");
+                       for (i = 0; i < strlen(message); i++) {
+                           if (grid[i][j] == 0)
+                               fprintf(debugFile, "- ");
+                           else
+                               fprintf(debugFile, "%c ", grid[i][j]);
+                       }
+                   }
+                   fprintf (debugFile, "\n\n");
     
     // ----READ VALUES ROW BY ROW AND PRINT ENCRIPTED TEXT----
     
@@ -311,19 +393,26 @@ void railFence(char *message, char *cipherText, int length, int A) { // start of
     j = 0;
     
     while (j < A) { // two while loops move across each row then move down another column to read encrypted message
-        while (i < strlen(message)) {
+        while (i < length) {
             if (grid[i][j] != 0) { // if array element contains character assign the character to the corresponding cipherText character
                 cipherText[key] = grid[i][j];
                 i++; // incriment column and key if character is added to cipherKey
                 key++;
+                if (i == strlen(message))
+                    break;
             }
-            else
+            else {
                 i++; // move to next column if array element is zero
+                if (i == strlen(message))
+                    break;
+            }
         }
         i = 0; // reset to start of row
         j++; // move to next column
     }
 
+    cipherText [key] = 0;
+    
     printf("\n\n");
     
     fclose (debugFile); // close debug file
@@ -342,6 +431,8 @@ void railFence2(char *message, char *cipherText, int length, int A, int B, int d
     // START OF ENCRYPTION
         
     if (dir == 0) { // dir is passed from main and is zero if encryption is selected
+        
+        printf("%s", message);
         
         char grid[(2 * length)][2 * A]; // establishes 2D array responsible for holding message in correct order
     
@@ -486,6 +577,8 @@ void railFence2(char *message, char *cipherText, int length, int A, int B, int d
         buffer[(length - 1)] = '\0';
         strcpy(cipherText, buffer); // copies contents of buffer string to cipherText string (proved essential during debugging)
         
+        printf ("\n\nThe encrypted message is:\n%s\n\n\n", cipherText); // prints encrypted message to stdout
+        
         // following lines are for debugging purposes
         fprintf(debugFile, "length of string is: %d\n\n\n", length);
         fprintf(debugFile, "%s\n", cipherText);
@@ -499,7 +592,7 @@ void railFence2(char *message, char *cipherText, int length, int A, int B, int d
     if (dir == 1) { // dir is passed from main and is one if decryption is selected
     
         key = 0; // resets key to zero so strings can be written from beginning
-        char grid[strlen(cipherText)][A]; // establishes 2D array responsible for holding message in correct order
+        char grid[2 * (strlen(cipherText))][(2 * A)]; // establishes 2D array responsible for holding message in correct order
         fprintf(debugFile, "\n\n%s\n\n", cipherText); // used for debugging
 
         // ----RESET ALL VALUES IN ARRAY TO 0 AND PRINT VISUAL REPRESENTATION----
@@ -637,6 +730,8 @@ void railFence2(char *message, char *cipherText, int length, int A, int B, int d
         message[length] = 0; // sets last character of message and buffer strings to null
         buffer[length] = 0;
         strcpy(message, buffer); // copies contents of buffer string to message string (proved essential during debugging)
+        
+        printf ("\n\nThe decrypted message is:\n%s\n\n\n", message); // prints decrypted message to stdout
         
         // following lines are for debbugging purposes
         fprintf(debugFile, "\n\n");
