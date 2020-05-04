@@ -155,6 +155,14 @@
 		0B54594D245E984400E5BE64 /* A */ = {isa = PBXFileReference; lastKnownFileType = text; path = A; sourceTree = "<group>"; };
 		0B54594E245E984C00E5BE64 /* B */ = {isa = PBXFileReference; lastKnownFileType = text; path = B; sourceTree = "<group>"; };
 		0B54594F245EFF8100E5BE64 /* Cipher */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cipher; sourceTree = "<group>"; };
+		0B545950245F9DD100E5BE64 /* Decrypted */ = {isa = PBXFileReference; lastKnownFileType = text; path = Decrypted; sourceTree = "<group>"; };
+		0B545951245FB2B200E5BE64 /* Debugging Visualisations */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Debugging Visualisations"; sourceTree = "<group>"; };
+		0B545952245FCEDE00E5BE64 /* Key */ = {isa = PBXFileReference; lastKnownFileType = text; path = Key; sourceTree = "<group>"; };
+		0B545953245FD89500E5BE64 /* Key */ = {isa = PBXFileReference; lastKnownFileType = text; path = Key; sourceTree = "<group>"; };
+		0B545954245FD89C00E5BE64 /* Cipher */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cipher; sourceTree = "<group>"; };
+		0B545955245FD8A600E5BE64 /* Decrypted */ = {isa = PBXFileReference; lastKnownFileType = text; path = Decrypted; sourceTree = "<group>"; };
+		0B545956245FD8B200E5BE64 /* Debugging Visualisations */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Debugging Visualisations"; sourceTree = "<group>"; };
+		0B545957245FDB7300E5BE64 /* Key */ = {isa = PBXFileReference; lastKnownFileType = text; path = Key; sourceTree = "<group>"; };
 		0B627D752434ABDD00BA8FC0 /* ENGG1003 Assessment 1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "ENGG1003 Assessment 1"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B627D782434ABDD00BA8FC0 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		0B627D8E243B4CB800BA8FC0 /* Message */ = {isa = PBXFileReference; lastKnownFileType = text; path = Message; sourceTree = "<group>"; };
@@ -350,6 +358,7 @@
 				0B54594C245E983C00E5BE64 /* Task Selection */,
 				0B54594D245E984400E5BE64 /* A */,
 				0B54594E245E984C00E5BE64 /* B */,
+				0B545957245FDB7300E5BE64 /* Key */,
 				0B627D8E243B4CB800BA8FC0 /* Message */,
 				0B627D8F243B4CC500BA8FC0 /* Cipher Text */,
 				0B54594A245BDFE300E5BE64 /* Debugging Visualisations */,
@@ -371,7 +380,10 @@
 			isa = PBXGroup;
 			children = (
 				0B627DA2243C813E00BA8FC0 /* main.c */,
+				0B545952245FCEDE00E5BE64 /* Key */,
 				0B54594F245EFF8100E5BE64 /* Cipher */,
+				0B545950245F9DD100E5BE64 /* Decrypted */,
+				0B545951245FB2B200E5BE64 /* Debugging Visualisations */,
 			);
 			path = "Test File 2";
 			sourceTree = "<group>";
@@ -380,6 +392,10 @@
 			isa = PBXGroup;
 			children = (
 				0B627DAD243C8F1900BA8FC0 /* main.c */,
+				0B545953245FD89500E5BE64 /* Key */,
+				0B545954245FD89C00E5BE64 /* Cipher */,
+				0B545955245FD8A600E5BE64 /* Decrypted */,
+				0B545956245FD8B200E5BE64 /* Debugging Visualisations */,
 			);
 			path = "Test File 3";
 			sourceTree = "<group>";

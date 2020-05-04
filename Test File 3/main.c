@@ -1,135 +1,156 @@
+// SUBBSTITUTION CIPHER
 #include <stdio.h>
 #include <string.h>
 
-void railFence(char *message, char *cipherText, int length, int A);
+int findSize(char filename[]); // declaration of function used to determine length of file
 
 int main() {
     
-    char message[] = "hello world";
-    int rails = 3;
-    char cipherText[strlen(message)];
+    char cipherFilename[] = "Cipher";
+    char decryptedFilename[] = "Decrypted";
+    char keyFilename[] = "Key";
+    int length = 0;
+    char orderedAlphabet[26] = "etaoinsrhdlucmfywgpbvkxqjz";
+    char alphabet[26] = "abcdefghijklmnopqrstuvwxyz";
+    char orderedFrequencyAlphabet[26];
     
-    railFence(message, cipherText, (int)strlen(message), rails);
+    length = findSize(cipherFilename);
+    
+    FILE* cipherFile;
+    cipherFile = fopen (cipherFilename, "r");
+    
+    FILE* decryptedFile;
+    decryptedFile = fopen (decryptedFilename, "w");
+    
+    FILE* debugFile; // opens debug file in write mode
+    debugFile = fopen ("Debugging Visualisations", "w");
+    
+    FILE* keyFile;
+    keyFile = fopen (keyFilename, "w");
     
     
-    return 0;
-}
+    char input[length];
+    char output[length];
+    char buffer;
+    char inputCopy[length];
+    char buffer2[26];
+    
+    // COUNTER VARIABLES
+    int counter = 0;
+    int x = 0;
+    int y = 0;
+    int a = 0;
+    int b = 0;
+    int pos = 0;
+    int bufferpos = 0;
+    
+    
+    while (pos < (length - 1)) {
+        fscanf (cipherFile, "%c", &buffer);
+        input[pos] = buffer;
+        pos++;
+    }
 
+    input [pos] = 0;
+    
+    fprintf (debugFile, "Encrypted message:\n%s\n\n", input);
+    
+    pos = 0;
+    
+    int count[26] = {0};
+    
+    while (input [pos] != '\0') {
+        if ((input [pos] >= 'a') && (input [pos] <= 'z')) {
+            x = input [pos] - 'a';
+                    count[x]++;
+        }
+        pos++;
+    }
+    fprintf (debugFile, "In alphabetical order:\n");
+    for (pos = 0; pos < 26; pos++)
+        fprintf(debugFile, "%c occurs %d times\n", (pos + 'a'), count [pos]);
+    
+    fprintf (debugFile, "\n\nCharacter frequency alphabet:\n");
+    for (a = 0; a < 26; a++) {
+        fprintf (debugFile, "%c\n", orderedAlphabet [a]);
+    }
 
-void railFence(char *message, char *cipherText, int length, int A) {
-    
-//    char message [] = "hello world";
-//    int A = 3;
-    
-    char grid[strlen(message)][A];
-    
-    /*int rail,*/ int i = 0, j = 0; // i is x coordinate and j is y coordinate
-        
-    // RESET ALL VALUES IN ARRAY TO 0 AND PRINT VISUAL REPRESENTATION - WORKING
-    
-    for (j = 0; j < A; j++) { //2 nested 'for' loops to reset all values in grid to 0, also prints visual representation
-        printf ("\n");
-        for (i = 0; i < strlen(message); i++) {
-            grid [i][j] = 0;
-            printf("%d ", grid[i][j]);
+    fprintf (debugFile, "\n\nIn order of frequency:\n");
+
+    for(a = 0; a < 26; a++) {
+    y = 0;
+    for(x=0; x<26; x++) {
+        if(count[x] > count[y]) {
+            y = x;
         }
     }
-    printf ("\n");
-
-    // SET VALUES WHICH WILL CONTAIN CHARACTER TO '1' - WORKING
-    
-    j = 0; //resets both coordinates to zero so algorithm starts from (0,0)
-    i = 0;
-    
-    while (i < strlen(message)) { // only proceeds for length of message
-        if (j == 0) { //if at top of rails, algorithm moves diagonally down unntil it reaches the bottom rail (A-1). this happens by adding one to both j and i
-            while (1) {
-                grid [i][j] = 1;
-
-                if (j == A-1) { // if at bottom of rails (A-1), then loop is broken so code can continue at next if statement
-                    break;
-                }
-                i++;
-                j++;
-            }
-        }
+        orderedFrequencyAlphabet[y] = alphabet[y];
+        // orderedFrequencyAlphabet is an array storing the ASCII values of characters, stored in order of their frequency.
+        fprintf (debugFile, "%c occurs %d times           %c\n", (y + 'a'), count[y], orderedFrequencyAlphabet[y]);
+        // count at y is largets frequency at letter y
         
-        if (j == A-1) { // if at bottom of rails (A-1), algorithm moves diagonally up toward the right until it reaches the top rail. this happens by adding one to i and subracting one from j
-            while (1) {
-                grid [i][j] = 1;
-
-                if (j == 0) { // if at the top rail, loop is broken, if not then it continues to move upward and to the right diagonally
-                    break;
-                }
-                i++;
-                j--;
-            }
-        }
+        buffer2[bufferpos] = orderedFrequencyAlphabet [y];
+        bufferpos++;
         
+            count[y] = 0;
+            b++;
     }
-    // end block
-         
-    // PRINT VISUAL REPRESENTATION OF ARRAY - WORKING
     
-         for (j = 0; j < A; j++) {
-             printf ("\n");
-             for (i = 0; i < strlen(message); i++) {
-                 printf("%d ", grid[i][j]);
-             }
-         }
-         printf ("\n\n");
-
-        
+    fprintf(debugFile, "\n\n");
+    for (bufferpos = 0; bufferpos < 26; bufferpos++) {
+        fprintf (debugFile, "%c\n", buffer2 [bufferpos]);
+    }
+    fprintf(debugFile, "\n\n");
     
-    //START ASSIGNING CHARACTERS TO ARRAY CHARACTERS WITH '1' - WORKING
+    for (a = 0; a < 26; a++) {
+        fprintf (debugFile, "%c\n", orderedAlphabet [a]);
+    }
+     fprintf(debugFile, "\n\n");
     
-    i = 0;
-    j = 0;
+    for (a = 0; a < 26; a++) {
+        fprintf (keyFile, "%c --- %c\n", buffer2 [a], orderedAlphabet [a]);
+    }
     
-    while (i < strlen(message)) { // repeats process for every column
-        while (j < A) { // while loop sets every '1' in the given [i] column to its related character from the string
-            if (grid[i][j] == 1) {
-                grid[i][j] = message[i];
-                j++;
+    strcpy(inputCopy, input);
+    
+    for (counter = 0; counter < length; counter++) {
+        for (a = 0; a < 26; a++) {
+            if ((inputCopy [counter] >= 'a') && (inputCopy [counter] <= 'z')) {
+                if (inputCopy [counter] == buffer2 [a])
+                    output [counter] = orderedAlphabet [a];
             }
             else {
-                j++;
+                output [counter] = input [counter];
             }
         }
-        i++;
-        j = 0; // resets j to 0 as algorithm moves to next column
-    }
-            
-    // PRINT VISUAL REPRESENTATION OF ARRAY - WORKING
-    
-            for (j = 0; j < A; j++) {
-                printf ("\n");
-                for (i = 0; i < strlen(message); i++) {
-                    printf("%d ", grid[i][j]);
-                }
-            }
-            printf ("\n\n");
-    
-    i = 0;
-    j = 0;
-    
-    // READ VALUES ROW BY ROW AND PRINT ENCRIPTED TEXT - WORKING
-    
-    while (j < A) {
-        while (i < strlen(message)) {
-            if (grid[i][j] != 0) {
-                printf("%c", grid [i][j]);
-                i++;
-            }
-            else
-                i++;
-        }
-        i = 0;
-        j++;
-        
     }
     
-    printf("\n\n");
+    output [counter] = '\0';
+    
+    for (counter = 0; counter < length; counter++) {
+        fprintf (decryptedFile, "%c", output [counter]);
+    }
+
+    // closes all opened files
+    fclose (debugFile);
+    fclose (keyFile);
+    fclose (decryptedFile);
+    fclose (cipherFile);
+}
+
+    int findSize(char filename[]) { // start of function definition to determine length of file
+
+    FILE* file = fopen(filename, "r"); // opens file with name passed to function from main
+  
+    if (file == NULL) { // if statements occurs if file does not exist
+        perror("error"); // prints error and error description to stdout
+        return -1; // returns impossible length for file if file does not exist
+    }
+  
+    fseek(file, 0L, SEEK_END); // seeks to end of file so position of last character can be determined
+    int size = (int)ftell(file); // determines size of file as integer
+    fclose(file); // close file
     
     
+    return size; // return length of file (will be no. of characters +1 for terminating character)
 }

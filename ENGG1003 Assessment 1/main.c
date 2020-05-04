@@ -4,6 +4,7 @@
 
 void railFence(char *message, char *cipherText, int length, int A); // rail fence function declaration as specified in task
 void railFence2(char *message, char *cipherText, int length, int A, int B, int dir); // two level rail fence function declaration as specified in task
+void subCipher(int length); // function declaration for substitution cipher - only passed length of message
 int findSize(char filename[]); // declaration of function used to determine length of file
 
 int main(int argc, char *argv[]) {
@@ -205,6 +206,35 @@ int main(int argc, char *argv[]) {
             break;
         }
 
+        case 4: {
+            
+            FILE* encryptedFile; // opens original, encrypted message file in read mode
+            encryptedFile = fopen (encryptedFilename, "r");
+            
+            FILE* debugFile; // opens debug file in write mode
+            debugFile = fopen ("Debugging Visualisations", "w");
+            
+            length = findSize(encryptedFilename); // calls findSize function passing it the filename which is being used as input and sets returned integer as length variable
+            fprintf (debugFile, "message length is: %d\n", length); // prints length of string to debug file (used for debugging)
+            
+            printf ("\n\n    Decryption using substitution cipher selected");
+            char enter = 0;
+            printf ("\n    Press ENTER to continue... ");
+            while (enter != '\r' && enter != '\n') { // loop which proceeds only when newline char detected in stdin, gives user time to read menu
+                enter = getchar();
+            }
+            
+            subCipher(length); // calls function, passing it length of file containing the encrypted message
+            
+            printf ("    Decrypted text has successfully been printed to the '%s' file.", decryptedFilename);
+            
+            fclose (encryptedFile); // closes all files
+            fclose (debugFile);
+            
+            break;
+            
+        }
+            
         default: { // DEFAULT
             printf ("An error has occured"); // if option outside of menu values (should be impossible due to while loop above) prints error to stdout and returns 8
             return 8;
@@ -743,3 +773,133 @@ void railFence2(char *message, char *cipherText, int length, int A, int B, int d
         }
     fclose (debugFile);
 }
+
+void subCipher(int length) {
+    
+        // initialise necessary strings used to open files
+        char cipherFilename[] = "Cipher Text";
+        char decryptedFilename[] = "Message";
+        char keyFilename[] = "Key";
+        
+        // open necessary files in read or write modes
+        FILE* cipherFile;
+        cipherFile = fopen (cipherFilename, "r");
+        
+        FILE* decryptedFile;
+        decryptedFile = fopen (decryptedFilename, "w");
+        
+        FILE* debugFile; // opens debug file in write mode
+        debugFile = fopen ("Debugging Visualisations", "w");
+        
+        FILE* keyFile;
+        keyFile = fopen (keyFilename, "w");
+        
+        // initialise strings to hold characters, where 'length' is length of input file and 26 is length of alphabet
+        char input[length];
+        char output[length];
+        char buffer;
+        char inputCopy[length];
+        char buffer2[26];
+        char orderedAlphabet[26] = "etaoinsrhdlucmfywgpbvkxqjz"; // string containing ordered list of letters from most to least common
+        char alphabet[26] = "abcdefghijklmnopqrstuvwxyz";
+        char orderedFrequencyAlphabet[26];
+        
+        // initialise counter variables, used for tracking positions of characters within strings
+        int counter = 0;
+        int x = 0;
+        int y = 0;
+        int a = 0;
+        int pos = 0;
+        int bufferpos = 0;
+        
+        
+        while (pos < (length - 1)) { // while loop scans file character by character, then loads into input string.
+            fscanf (cipherFile, "%c", &buffer);
+            input[pos] = buffer;
+            pos++;
+        }
+
+        input [pos] = 0; // terminates input string
+        
+        fprintf (debugFile, "Encrypted message:\n%s\n\n", input); // used for debugging
+        
+        pos = 0; // resets position counter so counter can begin from start of string
+        
+        int count[26] = {0};
+        while (input [pos] != '\0') { // while loop moves through string until terminating string is found
+            if ((input [pos] >= 'a') && (input [pos] <= 'z')) { // only counts lower case characters (i.e. ASCII values between 97 and 122)
+                x = input [pos] - 'a'; // assigns number from 1 to 26 to each letter in alphabet
+                        count[x]++; // increases value of array element at that position to denote how many times character occurs in string
+            }
+            pos++; // incriments pos to move to next character in input string
+        }
+        fprintf (debugFile, "In alphabetical order:\n"); // used for debugging
+        for (pos = 0; pos < 26; pos++) {
+            fprintf(debugFile, "%c occurs %d times\n", (pos + 'a'), count [pos]);
+        }
+            
+        fprintf (debugFile, "\n\nCharacter frequency alphabet:\n"); // used for debugging
+        for (a = 0; a < 26; a++) {
+            fprintf (debugFile, "%c\n", orderedAlphabet [a]);
+        }
+
+        fprintf (debugFile, "\n\nIn order of frequency:\n"); // used for debugging
+
+        for(a = 0; a < 26; a++) { // for loop ensures it is run 26 times so each letter in alphabet can be tested
+            y = 0; // y reset to zero so testing can begin again otherwise only most frequent character will be counted
+            for(x = 0; x < 26; x++) { // for loop test character against another and if it is more frequent it replaces it, continuting this process the most frequent number at the end will be y
+                if(count[x] > count[y]) {
+                    y = x;
+                }
+            }
+            
+            orderedFrequencyAlphabet[y] = alphabet[y]; // orderedFrequencyAlphabet is an array storing the ASCII values of characters, stored in order of their frequency.
+            fprintf (debugFile, "%c occurs %d times           %c\n", (y + 'a'), count[y], orderedFrequencyAlphabet[y]); // count at y is largets frequency at letter y - used for debugging
+            
+            buffer2[bufferpos] = orderedFrequencyAlphabet [y]; // load characters into second string in order or frequency so it can be removed from string to not be counted again
+            bufferpos++;
+            
+            count[y] = 0; // since y will be largest array element (of frequencies) at this point, remove it from the array so it is not counted again
+        }
+        
+        fprintf(debugFile, "\n\n"); // used for debugging
+        for (bufferpos = 0; bufferpos < 26; bufferpos++) {
+            fprintf (debugFile, "%c\n", buffer2 [bufferpos]);
+        }
+        fprintf(debugFile, "\n\n"); // used for debugging
+        
+        for (a = 0; a < 26; a++) { // used for debugging
+            fprintf (debugFile, "%c\n", orderedAlphabet [a]);
+        }
+         fprintf(debugFile, "\n\n"); // used for debugging
+        
+        for (a = 0; a < 26; a++) { // used for debugging
+            fprintf (keyFile, "%c --- %c\n", buffer2 [a], orderedAlphabet [a]);
+        }
+        
+        strcpy(inputCopy, input); // copy input string to another identical string so one can be modified
+        
+        for (counter = 0; counter < length; counter++) { // for loop runs through each character in the inputCopy string
+            for (a = 0; a < 26; a++) { // for loop compares character from input copy string to all characters in buffer2 string to find character with same relative frequency
+                if ((inputCopy [counter] >= 'a') && (inputCopy [counter] <= 'z')) { // if statement ensures only lowercase characters are modified
+                    if (inputCopy [counter] == buffer2 [a]) // replaces encrypted character with character of same relative frequency
+                        output [counter] = orderedAlphabet [a];
+                }
+                else {
+                    output [counter] = input [counter]; // retains any characters which are not lowercase characters between a and z
+                }
+            }
+        }
+        
+        output [counter] = '\0'; // terminates output string
+        
+        for (counter = 0; counter < length; counter++) { // used for debugging
+            fprintf (decryptedFile, "%c", output [counter]);
+        }
+
+        // closes all opened files
+        fclose (debugFile);
+        fclose (keyFile);
+        fclose (decryptedFile);
+        fclose (cipherFile);
+    }
